@@ -1,0 +1,79 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="SchulVP.MainWindow"
+        Title="SchulVP" WindowState="FullScreen">
+	<StackPanel Initialized="Load" Background="Black">
+		<Viewbox Height="175">
+			<Label Foreground="White">Vertretungsplan</Label>
+		</Viewbox>
+		<Grid Height="898">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition/>
+				<ColumnDefinition/>
+			</Grid.ColumnDefinitions>
+			<Grid Margin="2" Grid.Column="0" Background="White">
+				<Viewbox>
+					<StackPanel>
+						<DockPanel>
+							<Label FontSize="15">Woche:</Label>
+							<Label Name="woche" VerticalAlignment="Center"></Label>
+						</DockPanel>
+						<DockPanel>
+							<Label FontSize="15">Abwesende Lehrer:</Label>
+							<Label Name="abLe" VerticalAlignment="Center"></Label>
+						</DockPanel>
+						<DockPanel>
+							<Label FontSize="15">Lehrer mit Änderungen:</Label>
+							<Label Name="lehMiAe" VerticalAlignment="Center"></Label>
+						</DockPanel>
+						<DockPanel>
+							<Label FontSize="15">Klassen mit Änderungen:</Label>
+							<Label Name="klaMiAe" VerticalAlignment="Center"></Label>
+						</DockPanel>
+						<StackPanel>
+							<Label FontSize="15">Geänderte Aufsichten:</Label>
+							<StackPanel Name="geAufs"></StackPanel>
+						</StackPanel>
+						<StackPanel>
+							<Label FontSize="15">Zusätzliche Informationen:</Label>
+							<StackPanel Name="zuInfosL"></StackPanel>
+						</StackPanel>
+					</StackPanel>
+				</Viewbox>
+			</Grid>
+			<Grid Margin="2" Grid.Column="1" Background="White">
+				<Viewbox>
+					<DockPanel>
+						<StackPanel>
+							<Label BorderThickness="2" BorderBrush="Black">Klasse/Kurs</Label>
+							<StackPanel Name="Klasse"></StackPanel>
+						</StackPanel>
+						<StackPanel>
+							<Label BorderThickness="2" BorderBrush="Black">Stunde</Label>
+							<StackPanel Name="Stunde"></StackPanel>
+						</StackPanel>
+						<StackPanel>
+							<Label BorderThickness="2" BorderBrush="Black">Fach</Label>
+							<StackPanel Name="Fach"></StackPanel>
+						</StackPanel>
+						<StackPanel>
+							<Label BorderThickness="2" BorderBrush="Black">Lehrer</Label>
+							<StackPanel Name="Lehrer"></StackPanel>
+						</StackPanel>
+						<StackPanel>
+							<Label BorderThickness="2" BorderBrush="Black">Raum</Label>
+							<StackPanel Name="Raum"></StackPanel>
+						</StackPanel>
+						<StackPanel>
+							<Label BorderThickness="2" BorderBrush="Black">Info</Label>
+							<StackPanel Name="Info"></StackPanel>
+						</StackPanel>
+					</DockPanel>
+				</Viewbox>
+			</Grid>
+		</Grid>
+	</StackPanel>
+</Window>
