@@ -21,7 +21,7 @@ namespace SchulVP
             Stream zugriff;
             try
             {
-                task = client.GetStreamAsync($"https://www.stundenplan24.de/10104966/vplan/vdaten/VplanKl{DateTime.Today.ToString("yyyymmdd")}.xml");
+                task = client.GetStreamAsync($"https://www.stundenplan24.de/10104966/vplan/vdaten/VplanKl{DateTime.Today.ToString("yyyyMMdd")}.xml");
                 zugriff = task.Result;
             }
             catch
