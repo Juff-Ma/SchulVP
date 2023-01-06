@@ -78,14 +78,16 @@ namespace SchulVP
             }
             return Template;
         }
-        
+
+        bool firstStart = true;
+        short times = -1;
 
         private async void Load(object? sender, EventArgs e)
         {
-
             await Task.Delay(5000);
             this.Cursor = new Avalonia.Input.Cursor(Avalonia.Input.StandardCursorType.None);
             retry:
+            times++;
             try
             {
                 while (true)
@@ -94,6 +96,9 @@ namespace SchulVP
                     {
                         main.IsVisible = true;
                         error.IsVisible = false;
+                        white.IsVisible = false;
+                        firstStart = false;
+                        times = -1;
                         if (Item is vpKopf)
                         {
                             vpKopf item = (vpKopf)Item;
@@ -152,7 +157,10 @@ namespace SchulVP
             catch(Exception ex)
             {
                 main.IsVisible = false;
-                error.IsVisible = true;
+                if (firstStart && times <= 15)
+                    white.IsVisible = true;
+                else if (times > 10)
+                    error.IsVisible = true;
                 await Task.Delay(TimeSpan.FromMinutes(1));
                 goto retry;
             }

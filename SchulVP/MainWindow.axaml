@@ -9,7 +9,8 @@
 		<Viewbox Height="175">
 			<Label Foreground="White">Vertretungsplan</Label>
 		</Viewbox>
-		<Grid Background="White" Height="898">
+		<Grid Height="898">
+			<Grid Height="898" Background="White" Name="white"/>
 			<Grid Height="898" Background="White" Name="error" IsVisible="False">
 				<StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
 					<TextBlock FontSize="50" Foreground="Red" >Fehler, keine Internetverbindung!</TextBlock>
