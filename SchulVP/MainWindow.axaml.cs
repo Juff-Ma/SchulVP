@@ -85,63 +85,76 @@ namespace SchulVP
 
             await Task.Delay(5000);
             this.Cursor = new Avalonia.Input.Cursor(Avalonia.Input.StandardCursorType.None);
-            while (true)
+            retry:
+            try
             {
-                foreach (object Item in new VPRaw().Items)
+                while (true)
                 {
-                    if (Item is vpKopf)
+                    foreach (object Item in new VPRaw().Items)
                     {
-                        vpKopf item = (vpKopf)Item;
-
-                        AddInfos(item.kopfinfo.abwesendl, item.kopfinfo.aenderungl, item.kopfinfo.aenderungk);
-                        woche.Content = item.titel.Split('(')[1].Replace(')', ' ');
-
-                    }
-
-
-                    if (Item is vpFuss)
-                    {
-                        vpFuss item = (vpFuss)Item;
-                        List<Label> labels = new List<Label>();
-                        foreach (vpFussFusszeile zeile in item.fusszeile)
+                        main.IsVisible = true;
+                        error.IsVisible = false;
+                        if (Item is vpKopf)
                         {
-                            labels.Add(new Label() { Content = zeile.fussinfo });
-                        }
-                        AddInfos(labels.ToArray());
-                    }
-                    if (Item is vpAufsichten)
-                    {
-                        vpAufsichten item = (vpAufsichten)Item;
-                        List<Label> labels = new List<Label>();
-                        foreach (vpAufsichtenAufsichtzeile zeile in item.aufsichtzeile)
-                        {
-                            labels.Add(new Label() { Content = zeile.aufsichtinfo });
-                        }
-                        AddInfos(labels.ToArray(), true);
-                    }
+                            vpKopf item = (vpKopf)Item;
 
-                    if (Item is vpHaupt)
-                    {
-                        Klasse.Children.Clear();
-                        Stunde.Children.Clear();
-                        Fach.Children.Clear();
-                        Lehrer.Children.Clear();
-                        Raum.Children.Clear();
-                        Info.Children.Clear();
-                        vpHaupt item = (vpHaupt)Item;
-                        foreach (vpHauptAktion aktion in item.aktion)
-                        {
-                            Klasse.Children.Add(GetFromTemplate(aktion.klasse, false));
-                            Stunde.Children.Add(GetFromTemplate(aktion.stunde, false));
-                            Fach.Children.Add(GetFromTemplate(aktion.fach.Value, aktion.fach.fageaendert == "ae"));
-                            Lehrer.Children.Add(GetFromTemplate(aktion.lehrer.Value, aktion.lehrer.legeaendert == "ae"));
-                            Raum.Children.Add(GetFromTemplate(aktion.raum.Value, aktion.raum.rageaendert == "ae"));
-                            Info.Children.Add(GetFromTemplate(aktion.info, false));
-                        }
-                    }
+                            AddInfos(item.kopfinfo.abwesendl, item.kopfinfo.aenderungl, item.kopfinfo.aenderungk);
+                            woche.Content = item.titel.Split('(')[1].Replace(')', ' ');
 
+                        }
+
+
+                        if (Item is vpFuss)
+                        {
+                            vpFuss item = (vpFuss)Item;
+                            List<Label> labels = new List<Label>();
+                            foreach (vpFussFusszeile zeile in item.fusszeile)
+                            {
+                                labels.Add(new Label() { Content = zeile.fussinfo });
+                            }
+                            AddInfos(labels.ToArray());
+                        }
+                        if (Item is vpAufsichten)
+                        {
+                            vpAufsichten item = (vpAufsichten)Item;
+                            List<Label> labels = new List<Label>();
+                            foreach (vpAufsichtenAufsichtzeile zeile in item.aufsichtzeile)
+                            {
+                                labels.Add(new Label() { Content = zeile.aufsichtinfo });
+                            }
+                            AddInfos(labels.ToArray(), true);
+                        }
+
+                        if (Item is vpHaupt)
+                        {
+                            Klasse.Children.Clear();
+                            Stunde.Children.Clear();
+                            Fach.Children.Clear();
+                            Lehrer.Children.Clear();
+                            Raum.Children.Clear();
+                            Info.Children.Clear();
+                            vpHaupt item = (vpHaupt)Item;
+                            foreach (vpHauptAktion aktion in item.aktion)
+                            {
+                                Klasse.Children.Add(GetFromTemplate(aktion.klasse, false));
+                                Stunde.Children.Add(GetFromTemplate(aktion.stunde, false));
+                                Fach.Children.Add(GetFromTemplate(aktion.fach.Value, aktion.fach.fageaendert == "ae"));
+                                Lehrer.Children.Add(GetFromTemplate(aktion.lehrer.Value, aktion.lehrer.legeaendert == "ae"));
+                                Raum.Children.Add(GetFromTemplate(aktion.raum.Value, aktion.raum.rageaendert == "ae"));
+                                Info.Children.Add(GetFromTemplate(aktion.info, false));
+                            }
+                        }
+
+                    }
+                    await Task.Delay(TimeSpan.FromMinutes(15));
                 }
-                await Task.Delay(TimeSpan.FromMinutes(15));
+            }
+            catch(Exception ex)
+            {
+                main.IsVisible = false;
+                error.IsVisible = true;
+                await Task.Delay(TimeSpan.FromMinutes(1));
+                goto retry;
             }
 
         }
